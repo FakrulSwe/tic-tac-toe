@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe 3D</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="overlay" class="overlay">
-        <div id="overlay-status" class="overlay-status"></div>
-        <button id="new-game-btn" class="new-game-btn">New Game</button>
+  <div class="game-container">
+    <h1>Tic-Tac-Toe</h1>
+    <div class="board" id="board">
+      <div class="cell" data-index="0"></div>
+      <div class="cell" data-index="1"></div>
+      <div class="cell" data-index="2"></div>
+      <div class="cell" data-index="3"></div>
+      <div class="cell" data-index="4"></div>
+      <div class="cell" data-index="5"></div>
+      <div class="cell" data-index="6"></div>
+      <div class="cell" data-index="7"></div>
+      <div class="cell" data-index="8"></div>
     </div>
-
-    <div id="game-board" class="game-board">
-        <!-- Tic-Tac-Toe grid will be created here by JavaScript -->
+    <button class="reset" onclick="resetGame()">Reset Game</button>
+    <div id="gameResult" class="game-result">
+      <p id="status"></p>
+      <button class="new-game" onclick="startNewGame()">New Game</button>
     </div>
-
-    <div id="status" class="status">X's turn</div>
-    <button id="reset" class="reset">Reset Game</button>
-
-    <script src="script.js"></script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
