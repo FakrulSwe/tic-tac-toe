@@ -1,34 +1,16 @@
-let board = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
-let gameStatus = document.getElementById("status");
-let gameResult = document.getElementById("gameResult");
+const cells = document.querySelectorAll('.cell');
+const board = document.getElementById('board');
+const resetButton = document.getElementById('reset');
+const message = document.getElementById('message');
+const resultScreen = document.getElementById('result-screen');
+const resultMessage = document.getElementById('result-message');
+const newGameButton = document.getElementById('new-game-btn');
 
-const cells = document.querySelectorAll(".cell");
+let currentPlayer = 'X';
+let gameState = ['', '', '', '', '', '', '', '', ''];
+let gameActive = true;
 
-cells.forEach(cell => {
-  cell.addEventListener("click", () => handleCellClick(cell));
-});
-
-function handleCellClick(cell) {
-  const index = cell.getAttribute("data-index");
-
-  if (board[index] === "" && !isGameOver()) {
-    board[index] = currentPlayer;
-    cell.textContent = currentPlayer;
-    if (checkWinner()) {
-      gameStatus.textContent = `${currentPlayer} wins!`;
-      gameResult.style.display = "block";
-    } else if (board.every(cell => cell !== "")) {
-      gameStatus.textContent = "It's a tie!";
-      gameResult.style.display = "block";
-    } else {
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
-    }
-  }
-}
-
-function checkWinner() {
-  const winPatterns = [
+const winningCombination = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -36,30 +18,52 @@ function checkWinner() {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6],
-  ];
+    [2, 4, 6]
+];
 
-  return winPatterns.some(pattern => {
-    const [a, b, c] = pattern;
-    return board[a] && board[a] === board[b] && board[a] === board[c];
-  });
+function checkWinner() {
+    for (let combination of winningCombination) {
+        const [a, b, c] = combination;
+        if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+            gameActive = false;
+            return gameState[a];
+        }
+    }
+    return gameState.includes('') ? null : 'Draw';
 }
 
-function isGameOver() {
-  return checkWinner() || board.every(cell => cell !== "");
+function handleCellClick(event) {
+    const cellIndex = event.target.getAttribute('data-cell');
+    if (gameState[cellIndex] || !gameActive) return;
+
+    gameState[cellIndex] = currentPlayer;
+    event.target.textContent = currentPlayer;
+
+    const winner = checkWinner();
+    if (winner) {
+        resultScreen.style.display = 'block';
+        resultMessage.textContent = winner === 'Draw' ? "It's a Draw!" : `${winner} Wins!`;
+    } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        message.textContent = `Player ${currentPlayer}'s Turn`;
+    }
 }
 
 function resetGame() {
-  board = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "X";
-  gameStatus.textContent = "";
-  gameResult.style.display = "none";
-  cells.forEach(cell => {
-    cell.textContent = "";
-  });
+    gameState = ['', '', '', '', '', '', '', '', ''];
+    gameActive = true;
+    currentPlayer = 'X';
+    cells.forEach(cell => cell.textContent = '');
+    message.textContent = `Player X's Turn`;  // Reset turn message
+    resultScreen.style.display = 'none'; // Hide result screen
 }
 
-function startNewGame() {
-  resetGame();
-  gameResult.style.display = "none";
-}
+cells.forEach(cell => {
+    cell.addEventListener('click', handleCellClick);
+});
+
+resetButton.addEventListener('click', resetGame);
+newGameButton.addEventListener('click', resetGame);
+
+// Initialize the game with Player X's turn
+message.textContent = `Player X's Turn`;

@@ -1,107 +1,114 @@
+/* General styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Added linear gradient */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #2e2e2e;
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    flex-direction: column;
-  }
-  
-  h1 {
+    overflow: hidden;
+}
+
+/* Main game container */
+.game-container {
     text-align: center;
+    background-color: #222;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
+}
+
+.header h1 {
+    font-size: 2.5em;
     margin-bottom: 20px;
-    color: white;
-  }
-  
-  .game-container {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .board {
+    color: #00eaff;  /* Neon blue */
+}
+
+.board {
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
-    gap: 5px;
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 10px;
     margin-bottom: 20px;
-  }
-  
-  .cell {
-    width: 100px;
-    height: 100px;
-    background-color: #fff;
-    border: 2px solid #ccc;
-    font-size: 36px;
+}
+
+.cell {
+    width: 120px;
+    height: 120px;
+    background-color: #444;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 3em;
+    color: #fff;
     cursor: pointer;
+    border: 2px solid #333;
+    border-radius: 10px;
     transition: background-color 0.3s;
-  }
-  
-  .cell:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .reset {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
+}
+
+.cell:hover {
+    background-color: #555;
+}
+
+.controls {
     margin-top: 20px;
-  }
-  
-  .reset:hover {
-    background-color: #45a049;
-  }
-  
-  .game-result {
-    display: none; /* Hidden by default */
-    margin-top: 20px;
-  }
-  
-  #status {
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #333;
-  }
-  
-  .new-game {
-    background-color: #007BFF;
-    color: white;
+}
+
+button {
     padding: 10px 20px;
-    border: none;
+    font-size: 1.2em;
     cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .new-game:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Mobile responsiveness */
-  @media (max-width: 600px) {
+    background-color: #00eaff;  /* Neon blue */
+    color: #222;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #00b8cc; /* Darker neon blue */
+}
+
+/* Result screen styles */
+.result-screen {
+    display: none;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.result-screen h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
     .board {
-      grid-template-columns: repeat(3, 80px);
-      grid-template-rows: repeat(3, 80px);
+        grid-template-columns: repeat(3, 90px);
+        grid-template-rows: repeat(3, 90px);
     }
-  
+
     .cell {
-      width: 80px;
-      height: 80px;
-      font-size: 28px;
+        width: 90px;
+        height: 90px;
+        font-size: 2.5em;
     }
-  }
-  
+}
